@@ -1,6 +1,7 @@
 els.sdf
 els.v12.suo
-!Debug/*.exe
+!Debug/els_channel.exe
+!Debug/els_login.exe
 !Debug/*.dll
 !Debug/Data
 Debug/HxD.exe
