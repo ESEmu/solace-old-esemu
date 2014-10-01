@@ -1,0 +1,10 @@
+els.sdf
+els.v12.suo
+!Debug/*.exe
+!Debug/*.dll
+!Debug/Data
+Debug/HxD.exe
+els_channel/Debug
+els_channel/ChannelOut.txt
+els_login/Debug
+kom/
