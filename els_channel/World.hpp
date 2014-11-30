@@ -1,7 +1,8 @@
 #pragma once
-#include <map>
+#include <deque>
 #include "Map.hpp"
 #include "Party.hpp"
+#include "PVP.hpp"
 
 namespace els {
 	
@@ -28,6 +29,18 @@ namespace els {
 		long long addParty(Party* party);
 		void delParty(long long pid);
 		Party* getParty(long long pid);
+
+		// PVP
+		static std::map<int, Player*> m_pvpQueue[3];
+		void pvpQueue(int mode, Player* player);
+		void pvpUnqueue(int mode, int id);
+		std::map<int, Player*>& getPVPQueue(int mode);
+		
+		static int m_pvpID = 1;
+		static std::map<int, PVP> m_pvpMatch[3];
+		int addPVPMatch(int mode, PVP match);
+		PVP* getPVPMatch(int id);
+
 
 		// Dungeons
 		

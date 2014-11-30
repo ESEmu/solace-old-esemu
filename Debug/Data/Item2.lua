@@ -1,4 +1,4 @@
-dofile 'Data/Enum.lua'
+dofile 'DataEnum.lua'
 
 g_pItemManager:AddItemTemplet({
   m_ItemID = 30012,

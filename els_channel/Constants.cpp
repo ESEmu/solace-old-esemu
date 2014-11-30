@@ -1,4 +1,5 @@
 #include "Constants.hpp"
+#include "Random.hpp"
 
 namespace els {
 	namespace Constants {
@@ -85,6 +86,76 @@ namespace els {
 			ii(73303500, 693755400),	// 78
 			ii(81625800, 775381200),	// 79
 			ii(91056800, 866438000)		// 80
+		};
+
+		// ty elwiki
+		const upgradeRate upgradeChance[20] = {
+			//Success   NC      Fail    Reset   Break
+			{ 10000,	0,		0,		0,		0 },	// 0 -> 1
+			{ 10000,	0,		0,		0,		0 },	// 1 -> 2
+			{ 9500,		500,	0,		0,		0 },	// 2 -> 3
+			{ 5700,		4050,	250,	0,		0 },	// 3 -> 4
+			{ 3000,		4400,	2600,	0,		0 },	// 4 -> 5
+			{ 1650,		3250,	5100,	0,		0 },	// 5 -> 6
+			{ 1218,		1973,	3654,	1328,	1827 },	// 6 -> 7
+			{ 750,		942,	3865,	2596,	1846 }, // 7 -> 8
+			{ 346,		1635,	3115,	2923,	1980 }, // 8 -> 9
+			{ 133,		728,	2252,	3907,	2980 }, // 9 -> 10
+			{ 99,		1026,	1390,	4735,	2748 }, // 10 -> 11
+			{ 0,		10000,	0,		0,		0 },	// 11 -> 12
+			{ 0,		10000,	0,		0,		0 },	// 12 -> 13
+			{ 0,		10000,	0,		0,		0 },	// 13 -> 14
+			{ 0,		10000,	0,		0,		0 },	// 14 -> 15
+			{ 0,		10000,	0,		0,		0 },	// 15 -> 16
+			{ 0,		10000,	0,		0,		0 },	// 16 -> 17
+			{ 0,		10000,	0,		0,		0 },	// 17 -> 18
+			{ 0,		10000,	0,		0,		0 },	// 18 -> 19
+			{ 0,		10000,	0,		0,		0 },	// 19 -> 20
+		};
+
+		int getUpgradeResult(int curlevel) {
+
+			int number = Random::integer(1, 10000);
+			int total = 0;
+
+			total += upgradeChance[curlevel].success;
+			if (number < total) {
+				return 1;
+			}
+			total += upgradeChance[curlevel].noChange;
+			if (number <= total) {
+				return 3;
+			}
+			total += upgradeChance[curlevel].failure;
+			if (number <= total) {
+				return 4;
+			}
+			total += upgradeChance[curlevel].reset;
+			if (number <= total) {
+				return 5;		// might not be correct value
+			}
+			return 2;	// might not be correct value (break)
+
+		}
+
+		const int elShardReq[8] = {
+			0,
+			130048,	// fire
+			130049, // water
+			130051, // nature
+			130050, // wind
+			130053, // light
+			130052, // dark
+			130047  // random
+		};
+
+		const int elShardIGMod[6] = {
+			0,
+			2,  // unique
+			0,  // elite
+			-2, // rare
+			-4, // normal
+			0   // low
 		};
 
 	}

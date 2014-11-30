@@ -1,0 +1,85 @@
+﻿Build started 30/11/2014 8:20:02 PM.
+     1>Project "C:\Users\Wang Zhijian\Desktop\CS\General Development\Elsword Development\els\els_channel\els_channel.vcxproj" on node 3 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt AuthHandler.cpp AuthPacket.cpp ChannelHandler.cpp ChannelPacket.cpp ChannelServerHandler.cpp CharacterHandler.cpp CharacterPacket.cpp Config.cpp Connection.cpp Constants.cpp Crypto.cpp Database.cpp DungeonDataProvider.cpp DungeonHandler.cpp DungeonPacket.cpp FieldHandler.cpp FieldPacket.cpp GameConnection.cpp Inventory.cpp Item.cpp InventoryHandler.cpp InventoryPacket.cpp ItemDataProvider.cpp LuaScript.cpp main.cpp Map.cpp MapDataProvider.cpp MessageHandler.cpp MessagePacket.cpp PacketBuilder.cpp PacketReader.cpp Party.cpp Player.cpp PVP.cpp PVPHandler.cpp PVPPacket.cpp Random.cpp Server.cpp Skill.cpp SkillHandler.cpp SkillInventory.cpp SkillPacket.cpp Time.cpp World.cpp
+         AuthHandler.cpp
+     1>c:\users\wang zhijian\desktop\cs\general development\elsword development\els\els_channel\Connection.hpp(3): fatal error C1083: Cannot open include file: 'boost/asio.hpp': No such file or directory
+         AuthPacket.cpp
+     1>c:\users\wang zhijian\desktop\cs\general development\elsword development\els\els_channel\PacketBuilder.hpp(3): fatal error C1083: Cannot open include file: 'boost/shared_array.hpp': No such file or directory
+         ChannelHandler.cpp
+     1>c:\users\wang zhijian\desktop\cs\general development\elsword development\els\els_channel\Connection.hpp(3): fatal error C1083: Cannot open include file: 'boost/asio.hpp': No such file or directory
+         ChannelPacket.cpp
+     1>c:\users\wang zhijian\desktop\cs\general development\elsword development\els\els_channel\PacketBuilder.hpp(3): fatal error C1083: Cannot open include file: 'boost/shared_array.hpp': No such file or directory
+         ChannelServerHandler.cpp
+     1>c:\users\wang zhijian\desktop\cs\general development\elsword development\els\els_channel\Connection.hpp(3): fatal error C1083: Cannot open include file: 'boost/asio.hpp': No such file or directory
+         CharacterHandler.cpp
+     1>c:\users\wang zhijian\desktop\cs\general development\elsword development\els\els_channel\Connection.hpp(3): fatal error C1083: Cannot open include file: 'boost/asio.hpp': No such file or directory
+         CharacterPacket.cpp
+     1>c:\users\wang zhijian\desktop\cs\general development\elsword development\els\els_channel\PacketBuilder.hpp(3): fatal error C1083: Cannot open include file: 'boost/shared_array.hpp': No such file or directory
+         Config.cpp
+         Connection.cpp
+     1>c:\users\wang zhijian\desktop\cs\general development\elsword development\els\els_channel\Connection.hpp(3): fatal error C1083: Cannot open include file: 'boost/asio.hpp': No such file or directory
+         Constants.cpp
+         Crypto.cpp
+     1>c:\users\wang zhijian\desktop\cs\general development\elsword development\els\els_channel\PacketBuilder.hpp(3): fatal error C1083: Cannot open include file: 'boost/shared_array.hpp': No such file or directory
+         Database.cpp
+     1>c:\users\wang zhijian\desktop\cs\general development\elsword development\els\els_channel\Database.hpp(3): fatal error C1083: Cannot open include file: 'mysql_connection.h': No such file or directory
+         DungeonDataProvider.cpp
+         DungeonHandler.cpp
+     1>c:\users\wang zhijian\desktop\cs\general development\elsword development\els\els_channel\Connection.hpp(3): fatal error C1083: Cannot open include file: 'boost/asio.hpp': No such file or directory
+         DungeonPacket.cpp
+     1>c:\users\wang zhijian\desktop\cs\general development\elsword development\els\els_channel\PacketBuilder.hpp(3): fatal error C1083: Cannot open include file: 'boost/shared_array.hpp': No such file or directory
+         FieldHandler.cpp
+     1>c:\users\wang zhijian\desktop\cs\general development\elsword development\els\els_channel\Connection.hpp(3): fatal error C1083: Cannot open include file: 'boost/asio.hpp': No such file or directory
+         FieldPacket.cpp
+     1>c:\users\wang zhijian\desktop\cs\general development\elsword development\els\els_channel\PacketBuilder.hpp(3): fatal error C1083: Cannot open include file: 'boost/shared_array.hpp': No such file or directory
+         GameConnection.cpp
+     1>c:\users\wang zhijian\desktop\cs\general development\elsword development\els\els_channel\GameConnection.hpp(3): fatal error C1083: Cannot open include file: 'boost/asio.hpp': No such file or directory
+         Inventory.cpp
+         Item.cpp
+         Compiling...
+         InventoryHandler.cpp
+     1>c:\users\wang zhijian\desktop\cs\general development\elsword development\els\els_channel\Connection.hpp(3): fatal error C1083: Cannot open include file: 'boost/asio.hpp': No such file or directory
+         InventoryPacket.cpp
+     1>c:\users\wang zhijian\desktop\cs\general development\elsword development\els\els_channel\PacketBuilder.hpp(3): fatal error C1083: Cannot open include file: 'boost/shared_array.hpp': No such file or directory
+         ItemDataProvider.cpp
+     1>c:\users\wang zhijian\desktop\cs\general development\elsword development\els\els_channel\LuaScript.hpp(7): fatal error C1083: Cannot open include file: 'lua.hpp': No such file or directory
+         LuaScript.cpp
+     1>c:\users\wang zhijian\desktop\cs\general development\elsword development\els\els_channel\LuaScript.hpp(7): fatal error C1083: Cannot open include file: 'lua.hpp': No such file or directory
+         main.cpp
+     1>c:\users\wang zhijian\desktop\cs\general development\elsword development\els\els_channel\Database.hpp(3): fatal error C1083: Cannot open include file: 'mysql_connection.h': No such file or directory
+         Map.cpp
+         MapDataProvider.cpp
+         MessageHandler.cpp
+     1>c:\users\wang zhijian\desktop\cs\general development\elsword development\els\els_channel\Connection.hpp(3): fatal error C1083: Cannot open include file: 'boost/asio.hpp': No such file or directory
+         MessagePacket.cpp
+     1>c:\users\wang zhijian\desktop\cs\general development\elsword development\els\els_channel\PacketBuilder.hpp(3): fatal error C1083: Cannot open include file: 'boost/shared_array.hpp': No such file or directory
+         PacketBuilder.cpp
+     1>c:\users\wang zhijian\desktop\cs\general development\elsword development\els\els_channel\PacketBuilder.hpp(3): fatal error C1083: Cannot open include file: 'boost/shared_array.hpp': No such file or directory
+         PacketReader.cpp
+     1>PacketReader.cpp(35): warning C4293: '<<' : shift count negative or too big, undefined behavior
+         Party.cpp
+         Player.cpp
+         PVP.cpp
+         PVPHandler.cpp
+     1>c:\users\wang zhijian\desktop\cs\general development\elsword development\els\els_channel\Connection.hpp(3): fatal error C1083: Cannot open include file: 'boost/asio.hpp': No such file or directory
+         PVPPacket.cpp
+     1>c:\users\wang zhijian\desktop\cs\general development\elsword development\els\els_channel\PacketBuilder.hpp(3): fatal error C1083: Cannot open include file: 'boost/shared_array.hpp': No such file or directory
+         Random.cpp
+         Server.cpp
+     1>c:\users\wang zhijian\desktop\cs\general development\elsword development\els\els_channel\Server.hpp(3): fatal error C1083: Cannot open include file: 'boost/asio.hpp': No such file or directory
+         Skill.cpp
+         SkillHandler.cpp
+     1>c:\users\wang zhijian\desktop\cs\general development\elsword development\els\els_channel\Connection.hpp(3): fatal error C1083: Cannot open include file: 'boost/asio.hpp': No such file or directory
+         Compiling...
+         SkillInventory.cpp
+         SkillPacket.cpp
+     1>c:\users\wang zhijian\desktop\cs\general development\elsword development\els\els_channel\PacketBuilder.hpp(3): fatal error C1083: Cannot open include file: 'boost/shared_array.hpp': No such file or directory
+         Time.cpp
+     1>Time.cpp(25): warning C4244: 'return' : conversion from 'time_t' to 'int', possible loss of data
+         World.cpp
+     1>Done Building Project "C:\Users\Wang Zhijian\Desktop\CS\General Development\Elsword Development\els\els_channel\els_channel.vcxproj" (Build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:12.45

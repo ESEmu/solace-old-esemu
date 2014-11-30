@@ -30,34 +30,30 @@ local function loadElswordData(destTbl, objName, funcName, indexField, dataFile)
  end
 end
 
--- Loader functions. Because C++.
+-- Loader functions
 
 function loadItems()
 	loadElswordData(items, "g_pItemManager", "AddItemTemplet", "m_ItemID", "Data/Item.lua")
 end
 
--- Item functions, call using C++
-
-local function itemExists(itemid)
-	if (items[itemid] ~= nil) then
-		return true
-	end
-	return false
-end
+-- Item functions
 
 function getEquipPosition(itemid)
-	if (itemExists(itemid)) then
-		return items[itemid].m_EqipPosition
-	end
-	return -1
+  return items[itemid] and items[itemid].m_EqipPosition or -1
+end
+
+function getItemLevel(itemid)
+  return items[itemid] and items[itemid].m_UseLevel or 0
 end
 
 function getItemType(itemid)
-	if (itemExists(itemid)) then
-		return items[itemid].m_ItemType
-	end
-	return -1
+	return items[itemid] and items[itemid].m_ItemType or -1
 end
 
+function getItemGrade(itemid)
+	return items[itemid] and items[itemid].m_ItemGrade or -1
+end
 
-
+function isDecorative(itemid)
+	return (items[itemid] and items[itemid].m_bFashion) == true
+end

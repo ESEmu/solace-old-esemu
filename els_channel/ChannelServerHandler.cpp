@@ -7,6 +7,7 @@
 #include "InventoryHandler.hpp"
 #include "MessageHandler.hpp"
 #include "SkillHandler.hpp"
+#include "PVPHandler.hpp"
 #include <iomanip>
 
 namespace els {
@@ -21,6 +22,7 @@ namespace els {
 			pr.skipBytes(1);
 
 			std::printf("RECV: 0x%x\n", header);
+			std::cout << std::endl;
 
 			switch (header) {
 				case 0x27F: // user_login
@@ -50,13 +52,13 @@ namespace els {
 				case 0x485:
 					AuthHandler::channelApproveReq(c);
 					break;
-				case 0x48D:
+				case 0x48E:
 					AuthHandler::unknown_0x48D(c);
 					break;
-				case 0x489:
+				case 0x48B:
 					AuthHandler::checkCharNameReq(pr, c);
 					break;
-				case 0x487:
+				case 0x489:
 					AuthHandler::createCharReq(pr, c);
 					break;
 				case 0x240:
@@ -76,6 +78,20 @@ namespace els {
 					ChannelHandler::unknown_0x234(c);
 					break;
 
+				// PVP
+				case 0x342:
+					PVPHandler::pvpQueueReq(pr, c);
+					break;
+				case 0x345:
+					PVPHandler::pvpQueueCancel(c);
+					break;
+				case 0x34A:
+					PVPHandler::pvpApproveReq(pr, c);
+					break;
+				case 0x95:
+					PVPHandler::pvpLoadReq(pr, c);
+					break;
+
 				// dungeon
 				case 0x5D:
 					DungeonHandler::tutorialReq(pr, c);
@@ -83,9 +99,9 @@ namespace els {
 				case 0x8E:
 					DungeonHandler::tutorialStartReq(c);
 					break;
-				case 0x94:
-					DungeonHandler::dungeonLoadReq(pr, c);
-					break;
+				//case 0x95: // used for PVP too o-o
+				//	DungeonHandler::dungeonLoadReq(pr, c);
+				//	break;
 				case 0xB7:
 					DungeonHandler::unknown_0xB7(c);
 					break;
@@ -126,21 +142,42 @@ namespace els {
 
 				// inventory
 
-				case 0x109:
+				case 0x10A:
 					InventoryHandler::moveItemReq(pr, c);
+					break;
+				case 0x110:
+					InventoryHandler::discardItemReq(pr, c);
+					break;
+				case 0x562:
+					InventoryHandler::openShopReq(pr, c);
+					break;
+				case 0x3D0:
+					InventoryHandler::upgradeEquipEnq(c);
+					break;
+				case 0x1CF:
+					InventoryHandler::upgradeEquipReq(pr, c);
+					break;
+				case 0x211:
+					InventoryHandler::enchantEquipReq(pr, c);
+					break;
+				case 0x193:
+					InventoryHandler::repairEquipReq(pr, c);
+					break;
+				case 0xF0:
+					InventoryHandler::buyItemReq(pr, c);
 					break;
 
 
 				// skills
-				case 0x126:
+				case 0x127:
 					SkillHandler::distributeSP(pr, c);
 					break;
-				case 0x128:
+				case 0x129:
 					SkillHandler::modifySkillSlots(pr, c);
 					break;
 
 				// world
-				case 0x4F3:
+				case 0x507:
 					ChannelHandler::useCoBoExpress(pr, c);
 					break;
 
@@ -153,10 +190,9 @@ namespace els {
 				case 0xE9: // shit went wrong
 					ChannelHandler::packetError(pr, c);
 					break;
-				case 0x237:
-					for (int i = 0; i < pr.getLength(); i++) {
-						std::cout << std::setbase(16) << static_cast<int>(pr.getPacket()[i]) << " ";
-					}
+				case 0x238: // send 0x23B
+					ChannelHandler::mapMovement(pr, c);
+					break;
 				default:
 					std::printf("Unhandled: 0x%x\n", header);
 			}
@@ -172,7 +208,7 @@ namespace els {
 			std::printf("RECV: 0x%x\n", header);
 
 			switch (header) {
-				case 0x238:
+				case 0x239:
 					ChannelHandler::gameConnStartReq(pr, c);
 					break;
 

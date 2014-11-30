@@ -52,16 +52,43 @@ namespace els {
 			conn->setPlayer(player);
 
 			// do checks
-			auto parties = World::getMap(player->getMap())->getParties();
+			auto players = World::getMap(player->getMap())->getPlayers();
 
-			for (auto party : *parties) {
-				if (party->getLeader()->getPlayerID() != player->getPlayerID())
-					conn->sendPacket(ChannelPacket::mapPartyData(party).getPacket());
+			// send everyone's data to me
+			// and send my stuff to everyone
+			std::cout << "MAP: " << player->getMap() << std::endl;
+			std::cout << "SEARCH: " << std::endl;
+			std::cout << "SIZE: " << players->size() << std::endl;
+			std::cout << "ADDR2: " << players << std::endl;
+			for (auto p : *players) {
+				std::cout << p.first << " " << p.second->getName() << std::endl;
+				if (p.first != player->getPlayerID()) {
+					std::cout << "MPLAYER: " << p.second->getPlayerID() << " - " << p.second->getName() << std::endl;
+					conn->sendPacket(ChannelPacket::mapPlayerData(p.second).getPacket());
+					World::getClient(p.second->getIP())->second->sendPacket(ChannelPacket::mapPlayerData(player).getPacket());
+				}
 			}
 			
 		}
 
+		void mapMovement(PacketReader pr, Connection* conn) {
+			
+			Player* player = conn->getPlayer();
 
+			std::cout << "LEN: " << pr.getLength() << std::endl;
+			for (int i = 0; i < pr.getLength(); i++) {
+				std::cout << std::hex << static_cast<int>(pr.getPacket()[i+39]) << " " << std::flush;
+			}
+			std::cout << std::endl;
+
+			// broadcast the movement
+			for (auto others : *World::getMap(player->getMap())->getPlayers()) {
+				if (others.second->getPlayerID() != player->getPlayerID()) {
+					World::getClient(others.second->getIP())->second->sendPacket(ChannelPacket::mapMovementData(player, &pr).getPacket());
+				}
+			}
+
+		}
 
 	}
 

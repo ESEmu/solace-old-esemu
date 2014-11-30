@@ -12,6 +12,7 @@ namespace els {
 		void packetError(PacketReader pr, Connection* conn);
 		void useCoBoExpress(PacketReader pr, Connection* conn);
 		void gameConnStartReq(PacketReader pr, GameConnection* conn);
+		void mapMovement(PacketReader pr, Connection* conn);
 
 	}
 

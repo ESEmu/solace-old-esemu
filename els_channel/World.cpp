@@ -49,6 +49,38 @@ namespace els {
 			return &m_parties[pid];
 		}
 
+		void pvpQueue(int mode, Player* player) {
+			m_pvpQueue[mode].insert(std::make_pair(player->getPlayerID(), player));
+		}
+
+		void pvpUnqueue(int mode, int id) {
+			if (m_pvpQueue[mode].find(id) != m_pvpQueue[mode].end())
+				m_pvpQueue[mode].erase(id);
+		}
+
+		std::map<int, Player*>& getPVPQueue(int mode) {
+			return m_pvpQueue[mode];
+		}
+
+		std::mutex pvpmtx;
+
+		int addPVPMatch(int mode, PVP match) {
+			pvpmtx.lock();
+			match.setID(m_pvpID + (mode + 1) * 1000000);
+			m_pvpMatch[mode].insert(std::make_pair(m_pvpID+(mode+1)*1000000, match));
+			int ret = m_pvpID + (mode + 1) * 1000000;
+			m_pvpID++;
+			pvpmtx.unlock();
+			
+			return ret;
+		}
+
+		PVP* getPVPMatch(int id) {
+			if (m_pvpMatch[id%1000000].find(id) != m_pvpMatch[id%1000000].end()) {
+				return &m_pvpMatch[id % 1000000][id];
+			}
+		}
+
 	}
 
 

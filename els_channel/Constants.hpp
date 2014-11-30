@@ -6,6 +6,14 @@ typedef std::pair<int, int> ii;
 namespace els {
 	namespace Constants {
 
+		struct upgradeRate {
+			int success;
+			int noChange;
+			int failure;
+			int reset;
+			int eqbreak;
+		};
+
 		enum useType : unsigned short;					// ??? lol
 		enum useCondition : unsigned short;				// item use condition: describes what character can use this item
 		enum unitType : unsigned short;					// unit type: a unique identifier for each character
@@ -16,6 +24,12 @@ namespace els {
 		enum skillType : unsigned short;					// skill type: indicates the skill type (eg. special active)
 
 		extern const std::pair<int, int> expTable[81];			// ExpTable: (Required Exp, Total Exp)
+
+		extern const int elShardReq[8];					// type of el shard required for enchanting
+		extern const int elShardIGMod[6];				// modifier for number of el shard required
+		
+		extern const upgradeRate upgradeChance[20];
+		int getUpgradeResult(int curlevel);
 
 		enum useType : unsigned short {
 			UT_NONE = 0,

@@ -23,7 +23,7 @@ namespace els {
 
 			sql::ResultSet* equip;
 			sql::PreparedStatement* pste;
-			pste = Database::con->prepareStatement("SELECT item.id, item.itemid, item.invpos, equip.endurance, equip.decorative, equipped, expiredate FROM item, equip WHERE item.id = equip.itemid AND item.charid = ?;");
+			pste = Database::con->prepareStatement("SELECT item.id, item.itemid, item.invpos, equip.endurance, equipped, expiredate, status, upgrades, sealed, attribute1, attribute2, attribute3 FROM item, equip WHERE item.id = equip.itemid AND item.charid = ?;");
 			pste->setInt(1, playerID);
 			equip = pste->executeQuery();
 			pste->close();
@@ -60,6 +60,7 @@ namespace els {
 			player.setUnitClass((els::Constants::unitClass)chr->getInt("unitclass"));
 			player.setUnitType((els::Constants::unitType)chr->getInt("unittype"));
 			player.setED(chr->getInt("ed"));
+			player.setAP(chr->getInt("ap"));
 			player.setEXP(chr->getInt("exp"));
 			player.setLevel(chr->getInt("level"));
 			player.getSkillInv()->setSP(chr->getInt("sp"));
@@ -69,27 +70,34 @@ namespace els {
 				player.getInv()->setMaxSlots(invSlots->getInt("invtype"), invSlots->getInt("maxslots"));
 			}
 
+			short quantity[11];
+			memset(quantity, 0, sizeof(quantity));
+
 			// init inventory
 
 			// load equips
-			int equipped = 0;
 
 			while (equip->next()) {
-				Item eqp(equip->getInt("id"), equip->getInt("itemid"), 1, equip->getInt("endurance"), equip->getBoolean("decorative"), equip->getBoolean("equipped"), true, equip->getInt("invpos"), equip->getString("expiredate"));
+				Item eqp(equip->getInt("id"), equip->getInt("itemid"), 1, equip->getInt("endurance"), equip->getBoolean("equipped"), true, equip->getInt("invpos"), equip->getString("expiredate"));
+				eqp.setAttribute(equip->getInt("attribute1"), 1);
+				eqp.setAttribute(equip->getInt("attribute2"), 2);
+				eqp.setAttribute(equip->getInt("attribute3"), 3);
+				eqp.setSealed(equip->getBoolean("sealed"));
+				eqp.setStatus(equip->getInt("status"));
+				eqp.setUpgrades(equip->getInt("upgrades"));
 				player.getInv()->addItem(&eqp);
-
-				if (equip->getBoolean("equipped")) {
-					equipped++;
-				}
-
 			}
-
-			player.getInv()->setEquipped(equipped);
 
 			// load items
 
 			while (item->next()) {
-				Item it(item->getInt("id"), item->getInt("itemid"), item->getInt("quantity"), 0, false, false, false, item->getInt("invpos"), item->getString("expiredate"));
+				Item it(item->getInt("id"), item->getInt("itemid"), item->getInt("quantity"), 0, false, false, item->getInt("invpos"), item->getString("expiredate"));
+				it.setAttribute(0, 1);
+				it.setAttribute(0, 2);
+				it.setAttribute(0, 3);
+				it.setSealed(false);
+				it.setStatus(1);
+				it.setUpgrades(0);
 				player.getInv()->addItem(&it);
 			}
 
@@ -109,9 +117,11 @@ namespace els {
 			long long pid = World::addParty(&party);
 			conn->getPlayer()->setParty(World::getParty(pid));
 			World::getMap(player.getMap())->addParty(conn->getPlayer()->getParty());
+			std::cout << "ADDR: " << World::getMap(player.getMap())->getPlayers() << std::endl;
 
 			// update world (add player to map)
 			World::getMap(conn->getPlayer()->getMap())->addPlayer(conn->getPlayer());
+			std::cout << "MAPSIZE: " << World::getMap(conn->getPlayer()->getMap())->getPlayers()->size() << std::endl;
 
 			// send response
 			conn->sendPacket(CharacterPacket::playerDataAck(conn->getPlayer()).getPacket()); // 2A

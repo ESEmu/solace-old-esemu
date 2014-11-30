@@ -58,7 +58,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>C:\Program Files %28x86%29\Lua\5.1\lib;E:\CPLIB\mysql-connector-c++-noinstall-1.1.3-win32\lib;E:\wamp\bin\mysql\mysql5.5.24\lib;E:\CPLIB\Boost\lib;E:\CPLIB\cryptopp\cpp\Win32\DLL_Output\ok;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>mysqlcppconn.lib;libmysql.lib;libboost_system-vc120-mt-gd-1_55.lib;libboost_date_time-vc120-mt-gd-1_55.lib;cryptopp.lib;lua5.1.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>mysqlcppconn.lib;libmysql.lib;libboost_system-vc120-mt-gd-1_55.lib;libboost_date_time-vc120-mt-gd-1_55.lib;cryptopp.lib;lua51.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -112,6 +112,9 @@
     <ClCompile Include="PacketReader.cpp" />
     <ClCompile Include="Party.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PVP.cpp" />
+    <ClCompile Include="PVPHandler.cpp" />
+    <ClCompile Include="PVPPacket.cpp" />
     <ClCompile Include="Random.cpp" />
     <ClCompile Include="Server.cpp" />
     <ClCompile Include="Skill.cpp" />
@@ -149,6 +152,9 @@
     <ClInclude Include="MessageHandler.hpp" />
     <ClInclude Include="MessagePacket.hpp" />
     <ClInclude Include="Party.hpp" />
+    <ClInclude Include="PVP.hpp" />
+    <ClInclude Include="PVPHandler.hpp" />
+    <ClInclude Include="PVPPacket.hpp" />
     <ClInclude Include="RecvOpcode.hpp" />
     <ClInclude Include="Inventory.hpp" />
     <ClInclude Include="Item.hpp" />

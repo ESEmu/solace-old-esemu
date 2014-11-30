@@ -186,6 +186,15 @@
     <ClCompile Include="Party.cpp">
       <Filter>Source Files\Game</Filter>
     </ClCompile>
+    <ClCompile Include="PVPHandler.cpp">
+      <Filter>Source Files\Handlers</Filter>
+    </ClCompile>
+    <ClCompile Include="PVPPacket.cpp">
+      <Filter>Source Files\Packet</Filter>
+    </ClCompile>
+    <ClCompile Include="PVP.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ChannelHandler.hpp">
@@ -312,6 +321,15 @@
       <Filter>Header Files\Game</Filter>
     </ClInclude>
     <ClInclude Include="Party.hpp">
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="PVPHandler.hpp">
+      <Filter>Header Files\Handlers</Filter>
+    </ClInclude>
+    <ClInclude Include="PVPPacket.hpp">
+      <Filter>Header Files\Packet</Filter>
+    </ClInclude>
+    <ClInclude Include="PVP.hpp">
       <Filter>Header Files\Game</Filter>
     </ClInclude>
   </ItemGroup>

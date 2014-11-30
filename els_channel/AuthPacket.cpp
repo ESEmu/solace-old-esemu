@@ -4,6 +4,7 @@
 #include "Constants.hpp"
 #include "Database.hpp"
 #include "Time.hpp"
+#include "ItemDataProvider.hpp"
 
 namespace els {
 
@@ -360,7 +361,7 @@ namespace els {
 
 			sql::ResultSet* equip;
 			sql::PreparedStatement* pste;
-			pste = Database::con->prepareStatement("SELECT item.id, item.itemid, invpos, endurance, decorative, expiredate FROM item, equip WHERE item.id = equip.itemid AND item.charid = ? ORDER BY invpos;");
+			pste = Database::con->prepareStatement("SELECT item.id, item.itemid, invpos, endurance, expiredate FROM item, equip WHERE item.id = equip.itemid AND item.charid = ? ORDER BY invpos;");
 			
 
 			PacketBuilder pb;
@@ -423,7 +424,8 @@ namespace els {
 				pb.writeInt(equip->rowsCount());
 
 				while (equip->next()) {
-
+					//bool isDecorative = ItemDataProvider::isDecorative(equip->getInt("itemid"));
+					bool isDecorative = true; // fuck this
 					pb
 						.writeInt(equip->getInt("invpos"))
 						.writeInt(0)
@@ -432,7 +434,7 @@ namespace els {
 						.writeShort(equip->getInt("invpos"))
 						.writeInt(equip->getInt("itemid"));
 
-					if (equip->getBoolean("decorative")) {
+					if (isDecorative) {
 						pb.writeByte(0);
 					}
 					else {
@@ -446,7 +448,7 @@ namespace els {
 						.writeInt(0)
 						.writeInt(0);
 					
-					if (equip->getBoolean("decorative")) {
+					if (equip->getBoolean(isDecorative)) {
 						pb.writeInt(7);
 					}
 					else {
@@ -552,7 +554,7 @@ namespace els {
 
 			sql::ResultSet* equip;
 			sql::PreparedStatement* pste;
-			pste = Database::con->prepareStatement("SELECT item.id, item.itemid, invpos, endurance, decorative, expiredate FROM item, equip WHERE item.id = equip.itemid AND item.charid = ? ORDER BY invpos;");
+			pste = Database::con->prepareStatement("SELECT item.id, item.itemid, invpos, endurance, expiredate FROM item, equip WHERE item.id = equip.itemid AND item.charid = ? ORDER BY invpos;");
 
 			PacketBuilder pb;
 			pb
@@ -610,7 +612,7 @@ namespace els {
 				pb.writeInt(equip->rowsCount());
 
 				while (equip->next()) {
-
+					bool isDecorative = ItemDataProvider::isDecorative(equip->getInt("itemid"));
 					pb
 						.writeInt(equip->getInt("invpos"))
 						.writeInt(0)
@@ -618,7 +620,7 @@ namespace els {
 						.writeByte(9)
 						.writeShort(equip->getInt("invpos"))
 						.writeInt(equip->getInt("itemid"));
-					if (equip->getBoolean("decorative")) {
+					if (isDecorative) {
 						pb.writeByte(7);
 					}
 					else {
@@ -631,7 +633,7 @@ namespace els {
 						.writeInt(0)
 						.writeInt(0);
 
-					if (equip->getBoolean("decorative")) {
+					if (isDecorative) {
 						pb.writeInt(7);
 					}
 					else {
@@ -718,7 +720,7 @@ namespace els {
 					.writeLong(0)
 					.writeInt(0)
 					.writeElsString(name)
-					.finishPacket(0x48A);
+					.finishPacket(0x48C);
 			} else {
 
 			}
@@ -795,7 +797,7 @@ namespace els {
 				.writeShort(0)
 				.writeByte(0)
 				.writeElsString(Time::now())
-				.finishPacket(0x25);
+				.finishPacket(0x27);
 
 			return pb;
 

@@ -18,7 +18,7 @@ namespace els {
 				case 0x280: // user_login
 					LoginHandler::userLogin(pr, c);
 					break;
-				case 0x4F3:
+				case 0x4F4:
 					LoginHandler::serverListReq(c);
 					break;
 				case 0x3F:

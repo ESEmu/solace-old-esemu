@@ -232,7 +232,6 @@ namespace els {
 			// check if - name is ok and - name is available
 
 			conn->sendPacket(AuthPacket::checkCharNameAck(name, true).getPacket());
-			conn->sendPacket(AuthPacket::unknown11_0x535().getPacket());
 		}
 
 		void createCharReq(PacketReader pr, Connection* conn) {
@@ -471,7 +470,7 @@ namespace els {
 			pste->setBoolean(5, true);
 
 			sql::PreparedStatement *pstc;
-			pstc = Database::con->prepareStatement("INSERT INTO equip(itemid, endurance, decorative, equipped) VALUES (LAST_INSERT_ID(),?,?,?);");
+			pstc = Database::con->prepareStatement("INSERT INTO equip(itemid, endurance, equipped) VALUES (LAST_INSERT_ID(),?,?);");
 
 			sql::PreparedStatement *psts;
 			psts = Database::con->prepareStatement("INSERT INTO skills(charid, skillid, level) VALUES (?,?,?);");

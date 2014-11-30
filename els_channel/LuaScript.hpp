@@ -3,18 +3,15 @@
 #include <string>
 #include <vector>
 #include <iostream>
-
-extern "C" {
-	#include "lua.h"
-	#include "lauxlib.h"
-	#include "lualib.h"
-}
+#include <mutex>
+#include "lua.hpp"
 
 namespace els {
 	
 	namespace LuaScript {
 		
 		void init();
+		std::mutex* getLock();
 		lua_State* getLuaState();
 
 	}

@@ -5,6 +5,7 @@ namespace els {
 	namespace LuaScript {
 
 		lua_State* L;
+		std::mutex mtx;
 
 		void init() {
 			
@@ -17,6 +18,10 @@ namespace els {
 				return;
 			}
 
+		}
+
+		std::mutex* getLock() {
+			return &mtx;
 		}
 
 		lua_State* getLuaState() {

@@ -1,5 +1,6 @@
 #include "DungeonPacket.hpp"
 #include "DungeonDataProvider.hpp"
+#include "ItemDataProvider.hpp"
 #include "Config.hpp"
 #include "Time.hpp"
 
@@ -80,22 +81,23 @@ namespace els {
 				.writeInt(0xB0)
 				.writeInt(0x7C);
 
-			pb.writeInt(player->getInv()->getEquipped());
-
-			int equipno = 1;
+			pb.writeInt(player->getInv()->getQuantity(9));
 			
-			for (auto item : *player->getInv()->getInventory()) {
+			for (int i = 0; i < player->getInv()->getMaxSlots(9); i++) {
 
-				if (item.second.isEquipped()) {
-
+				int uid = (*player->getInv()->getInventory(9))[i];
+				if (uid == -1) continue;
+				else {
+					auto item = &player->getInv()->getInventory()->find(uid)->second;
+					bool isDecorative = ItemDataProvider::isDecorative(item->getItemID());
 					pb
-						.writeInt(equipno)
+						.writeInt(item->getPosition())
 						.writeInt(0)
-						.writeInt(item.second.getUniqueID())
+						.writeInt(item->getUniqueID())
 						.writeByte(9)
-						.writeShort(item.second.getPosition())
-						.writeInt(item.second.getItemID());
-					if (item.second.isDecorative()) {
+						.writeShort(item->getPosition())
+						.writeInt(item->getItemID());
+					if (isDecorative) {
 						pb.writeByte(0);
 					}
 					else {
@@ -105,11 +107,11 @@ namespace els {
 					pb
 						.writeInt(1);
 
-					if (item.second.getEndurance() == -1) {
-						pb.writeShort(item.second.getEndurance());
+					if (item->getEndurance() == -1) {
+						pb.writeShort(item->getEndurance());
 					}
 					else {
-						pb.writeShort(item.second.getEndurance());
+						pb.writeShort(item->getEndurance());
 					}
 
 					pb
@@ -117,22 +119,21 @@ namespace els {
 						.writeInt(0)
 						.writeInt(0);
 
-					if (item.second.isDecorative()) {
+					if (isDecorative) {
 						pb.writeInt(7);
 					}
 					else {
 						pb.writeInt(0x10000);
 					}
 
-					if (item.second.getExpiry() != "0000-00-00 00:00:00") {
-						pb.writeElsString(item.second.getExpiry());
+					if (item->getExpiry() != "0000-00-00 00:00:00") {
+						pb.writeElsString(item->getExpiry());
 					}
 					else {
 						pb.writeInt(0);
 					}
 
 					pb.writeByte(0);
-					equipno++;
 
 				}
 
@@ -296,22 +297,23 @@ namespace els {
 				.writeInt(0xB0)
 				.writeInt(0x7C);
 
-			pb.writeInt(player->getInv()->getEquipped());
-
-			int equipno = 1;
+			pb.writeInt(player->getInv()->getQuantity(9));
 			
-			for (auto item : *player->getInv()->getInventory()) {
-
-				if (item.second.isEquipped()) {
+			for (int i = 0; i < player->getInv()->getMaxSlots(9); i++) {
+				int uid = (*player->getInv()->getInventory(9))[i];
+				if (uid == -1) continue;
+				else {
+					auto item = &player->getInv()->getInventory()->find(uid)->second;
+					bool isDecorative = ItemDataProvider::isDecorative(item->getItemID());
 
 					pb
-						.writeInt(item.second.getPosition())
+						.writeInt(item->getPosition())
 						.writeInt(0)
-						.writeInt(item.second.getUniqueID())
+						.writeInt(item->getUniqueID())
 						.writeByte(9)
-						.writeShort(item.second.getPosition())
-						.writeInt(item.second.getItemID());
-					if (item.second.isDecorative()) {
+						.writeShort(item->getPosition())
+						.writeInt(item->getItemID());
+					if (isDecorative) {
 						pb.writeByte(0);
 					}
 					else {
@@ -321,11 +323,11 @@ namespace els {
 					pb
 						.writeInt(1);
 
-					if (item.second.getEndurance() == -1) {
-						pb.writeShort(item.second.getEndurance());
+					if (item->getEndurance() == -1) {
+						pb.writeShort(item->getEndurance());
 					}
 					else {
-						pb.writeShort(item.second.getEndurance());
+						pb.writeShort(item->getEndurance());
 					}
 
 					pb
@@ -333,22 +335,21 @@ namespace els {
 						.writeInt(0)
 						.writeInt(0);
 
-					if (item.second.isDecorative()) {
+					if (isDecorative) {
 						pb.writeInt(7);
 					}
 					else {
 						pb.writeInt(0x10000);
 					}
 
-					if (item.second.getExpiry() != "0000-00-00 00:00:00") {
-						pb.writeElsString(item.second.getExpiry());
+					if (item->getExpiry() != "0000-00-00 00:00:00") {
+						pb.writeElsString(item->getExpiry());
 					}
 					else {
 						pb.writeInt(0);
 					}
 
 					pb.writeByte(0);
-					equipno++;
 
 				}
 
@@ -572,20 +573,22 @@ namespace els {
 				.writeInt(player->getBaseDef())
 				.writeInt(player->getBaseMagicDef());
 
-			pb.writeInt(player->getInv()->getEquipped());
+			pb.writeInt(player->getInv()->getQuantity(9));
 			
-			for (auto item : *player->getInv()->getInventory()) {
-
-				if (item.second.isEquipped()) {
-
+			for (int i = 0; i < player->getInv()->getMaxSlots(9); i++) {
+				int uid = (*player->getInv()->getInventory(9))[i];
+				if (uid == -1) continue;
+				else {
+					auto item = &player->getInv()->getInventory()->find(uid)->second;
+					bool isDecorative = ItemDataProvider::isDecorative(item->getItemID());
 					pb
-						.writeInt(item.second.getPosition())
+						.writeInt(item->getPosition())
 						.writeInt(0)
-						.writeInt(item.second.getUniqueID())
+						.writeInt(item->getUniqueID())
 						.writeByte(9)
-						.writeShort(item.second.getPosition())
-						.writeInt(item.second.getItemID());
-					if (item.second.isDecorative()) {
+						.writeShort(item->getPosition())
+						.writeInt(item->getItemID());
+					if (isDecorative) {
 						pb.writeByte(0);
 					}
 					else {
@@ -595,11 +598,11 @@ namespace els {
 					pb
 						.writeInt(1);
 
-					if (item.second.isDecorative()) {
+					if (isDecorative) {
 						pb.writeShort(0);
 					}
 					else {
-						pb.writeShort(item.second.getEndurance());
+						pb.writeShort(item->getEndurance());
 					}
 
 					pb
@@ -607,7 +610,7 @@ namespace els {
 						.writeInt(0)
 						.writeInt(0);
 
-					if (item.second.isDecorative()) {
+					if (isDecorative) {
 						pb
 							.writeShort(1)
 							.writeShort(7);
@@ -618,8 +621,8 @@ namespace els {
 							.writeShort(0);
 					}
 
-					if (item.second.getExpiry() != "0000-00-00 00:00:00") {
-						pb.writeElsString(item.second.getExpiry());
+					if (item->getExpiry() != "0000-00-00 00:00:00") {
+						pb.writeElsString(item->getExpiry());
 					}
 					else {
 						pb.writeInt(0);
@@ -1040,19 +1043,22 @@ namespace els {
 				.writeInt(player->getBaseDef())
 				.writeInt(player->getBaseMagicDef());
 
-			pb.writeInt(player->getInv()->getEquipped()); // number of equipped equips
+			pb.writeInt(player->getInv()->getQuantity(9)); // number of equipped equips
 			
-			for (auto item : *player->getInv()->getInventory()) {
-
-				if (item.second.isEquipped()) {
+			for (int i = 0; i < player->getInv()->getMaxSlots(9); i++) {
+				int uid = (*player->getInv()->getInventory(9))[i];
+				if (uid == -1) continue;
+				else {
+					auto item = &player->getInv()->getInventory()->find(uid)->second;
+					bool isDecorative = ItemDataProvider::isDecorative(item->getItemID());
 					pb
-						.writeInt(item.second.getPosition())
+						.writeInt(item->getPosition())
 						.writeInt(0)
-						.writeInt(item.second.getUniqueID())
+						.writeInt(item->getUniqueID())
 						.writeByte(9)
-						.writeShort(item.second.getPosition())
-						.writeInt(item.second.getItemID());
-					if (item.second.isDecorative()) {
+						.writeShort(item->getPosition())
+						.writeInt(item->getItemID());
+					if (isDecorative) {
 						pb.writeByte(0);
 					}
 					else {
@@ -1061,11 +1067,11 @@ namespace els {
 
 					pb
 						.writeInt(1);
-					if (item.second.isDecorative()) {
+					if (isDecorative) {
 						pb.writeShort(0);
 					}
 					else {
-						pb.writeShort(item.second.getEndurance());
+						pb.writeShort(item->getEndurance());
 					}
 					pb	
 						.writeInt(0)
@@ -1074,7 +1080,7 @@ namespace els {
 
 					// using masks?
 
-					if (item.second.isDecorative()) {
+					if (isDecorative) {
 						pb
 							.writeShort(1)
 							.writeShort(7);
@@ -1085,8 +1091,8 @@ namespace els {
 							.writeShort(0);
 					}
 
-					if (item.second.getExpiry() != "0000-00-00 00:00:00") {
-						pb.writeElsString(item.second.getExpiry());
+					if (item->getExpiry() != "0000-00-00 00:00:00") {
+						pb.writeElsString(item->getExpiry());
 					}
 					else {
 						pb.writeInt(0);

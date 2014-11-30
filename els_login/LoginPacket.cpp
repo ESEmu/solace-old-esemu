@@ -87,12 +87,12 @@ namespace els {
 
 		PacketBuilder serverListAck() {
 
-			std::cout << "SEND: 0x4F4" << std::endl;
+			std::cout << "SEND: 0x4F5" << std::endl;
 
 			PacketBuilder pb;
 			pb
 				.writeInt(0)
-				.finishPacket(0x4F4);
+				.finishPacket(0x4F5);
 
 			return pb;
 
@@ -113,7 +113,7 @@ namespace els {
 
 		PacketBuilder serverList() {
 
-			std::cout << "SEND: 0x4F5" << std::endl;
+			std::cout << "SEND: 0x4F6" << std::endl;
 
 			PacketBuilder pb;
 			pb
@@ -124,7 +124,7 @@ namespace els {
 				.writeElsString(Config::serverIP)
 				.writeInt(0x24B824B9)
 				.writeByte(1)
-				.finishPacket(0x4F5);
+				.finishPacket(0x4F6);
 
 			return pb;
 

@@ -1,8 +1,8 @@
 NULL = 0
-FALSE = 0
-TRUE = 1
-False = 0
-True = 1
+FALSE = false
+TRUE = true
+False = false
+True = true
 IGNORE_DISTANCE = -1
 D3DCULL = {
   D3DCULL_NONE = 1,

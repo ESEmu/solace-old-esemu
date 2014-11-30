@@ -10,7 +10,7 @@ namespace els {
 			
 			int fieldID = pr.readInt();
 
-			World::getMap(conn->getPlayer()->getMap())->removePlayer(conn->getPlayer());
+			World::getMap(conn->getPlayer()->getMap())->removePlayer(conn->getPlayer()->getPlayerID());
 			World::getMap(fieldID)->addPlayer(conn->getPlayer());
 			conn->getPlayer()->setMap(fieldID);
 

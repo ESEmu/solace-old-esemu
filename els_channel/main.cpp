@@ -32,8 +32,6 @@ int main() {
 	els::ItemDataProvider::init();
 	els::MapDataProvider::loadMaps();	// Maps
 	els::DungeonDataProvider::init();	// Dungeons
-	
-
 
 	// Net
 	
@@ -46,5 +44,13 @@ int main() {
 	std::cout << std::endl << "Fully initialized in " <<
 		std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count() / 1000.0 << " seconds" << std::endl;
 	
-	channel.init();
+	try {
+		channel.init();
+	}
+	catch (std::exception &e) {
+		std::cout << e.what() << std::endl;
+	}
+	catch (...) {
+		std::cout << "Exception Occurred." << std::endl;
+	}
 }

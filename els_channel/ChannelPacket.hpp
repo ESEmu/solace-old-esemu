@@ -1,5 +1,6 @@
 #pragma once
 #include "PacketBuilder.hpp"
+#include "PacketReader.hpp"
 #include "Player.hpp"
 #include "Party.hpp"
 
@@ -16,6 +17,8 @@ namespace els {
 		PacketBuilder unknown_0x235();
 		PacketBuilder useCoBoExpressAck(Player* player);
 		PacketBuilder mapPartyData(Party* party);
+		PacketBuilder mapPlayerData(Player* player);
+		PacketBuilder mapMovementData(Player* player, PacketReader* pr);
 
 	}
 

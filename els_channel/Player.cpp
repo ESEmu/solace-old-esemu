@@ -1,5 +1,7 @@
 #include "Player.hpp"
 #include "Inventory.hpp"
+#include "World.hpp"
+#include <iostream>
 
 
 namespace els {
@@ -7,6 +9,15 @@ namespace els {
 	Player::Player(int accid, int playerid, std::string name, std::string ip, std::string createDate, std::string lastLogin, int hp, int attack, int mattack, int def, int mdef, int map) :
 		m_accountID(accid), m_playerID(playerid), m_name(name), m_ip(ip), m_creationDate(createDate), m_lastLogin(lastLogin),
 		m_maxHP(hp), m_baseAttack(attack), m_baseMagicattack(mattack), m_baseDef(def), m_baseMagicDef(mdef), m_map(map) { }
+
+	Player::~Player() {
+		/*
+		std::cout << "CALLED!" << std::endl;
+		if (m_map >= 20000 && m_map <= 20008 || m_map >= 30000 && m_map <= 30007)
+			// replace this with something like (isValidMap)
+			World::getMap(m_map)->removePlayer(m_playerID);
+		*/
+	}
 
 	int Player::getAccountID() {
 		return m_accountID;
@@ -42,6 +53,10 @@ namespace els {
 
 	int Player::getEXP() {
 		return m_exp;
+	}
+
+	int Player::getAP() {
+		return m_ap;
 	}
 
 	Constants::unitType Player::getUnitType() {
@@ -80,6 +95,10 @@ namespace els {
 		return m_curDungeon;
 	}
 
+	int Player::getCurPVPMatch() {
+		return m_curPVPmatch;
+	}
+
 	Inventory* Player::getInv() {
 		return &m_inv;
 	}
@@ -106,6 +125,10 @@ namespace els {
 
 	void Player::setEXP(int exp) {
 		m_exp = exp;
+	}
+
+	void Player::setAP(int ap) {
+		m_ap = ap;
 	}
 
 	void Player::setUnitType(Constants::unitType unitType) {
@@ -140,8 +163,16 @@ namespace els {
 		m_map = map;
 	}
 
+	void Player::setInventory(Inventory* inv) {
+		m_inv = *inv;
+	}
+
 	void Player::setCurDungeon(int dungeon) {
 		m_curDungeon = dungeon;
+	}
+
+	void Player::setCurPVPMatch(int match) {
+		m_curPVPmatch = match;
 	}
 
 	void Player::setParty(Party* party) {

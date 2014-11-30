@@ -22,6 +22,7 @@ namespace els {
 			unsigned char m_level;
 			int m_ed;
 			int m_exp;
+			int m_ap;
 			Constants::unitType m_unitType;
 			Constants::unitClass m_unitClass;
 
@@ -33,6 +34,7 @@ namespace els {
 
 			int m_map;
 			int m_curDungeon;
+			int m_curPVPmatch;
 
 			Inventory m_inv;
 			SkillInventory m_skillInv;
@@ -42,7 +44,7 @@ namespace els {
 		public:
 			Player(int accid, int playerid, std::string name, std::string ip, std::string createDate, std::string lastLogin, int hp, int attack, int mattack, int def, int mdef, int map);
 			Player() { }
-			~Player() { }
+			~Player();
 			int getAccountID();
 			int getPlayerID();
 			std::string getName();
@@ -52,6 +54,7 @@ namespace els {
 			unsigned char getLevel();
 			int getED();
 			int getEXP();
+			int getAP();
 			Constants::unitType getUnitType();
 			Constants::unitClass getUnitClass();
 			int getMaxHP();
@@ -61,6 +64,7 @@ namespace els {
 			int getBaseMagicDef();
 			int getMap();
 			int getCurDungeon();
+			int getCurPVPMatch();
 			Inventory* getInv();
 			SkillInventory* getSkillInv();
 			Party* getParty();
@@ -68,6 +72,7 @@ namespace els {
 			void setLevel(unsigned char level);
 			void setED(int ed);
 			void setEXP(int exp);
+			void setAP(int ap);
 			void setUnitType(Constants::unitType unitType);
 			void setUnitClass(Constants::unitClass unitClass);
 			void setMaxHP(int hp);
@@ -77,7 +82,10 @@ namespace els {
 			void setBaseMagicDef(int mdef);
 			void setMap(int map);
 			void setCurDungeon(int dungeon);
+			void setCurPVPMatch(int match);
+			void setInventory(Inventory* inv);
 			void setParty(Party* party);
+
 			
 		
 	};

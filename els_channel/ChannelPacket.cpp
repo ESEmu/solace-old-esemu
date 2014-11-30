@@ -97,18 +97,18 @@ namespace els {
 				.writeInt(0)
 				.writeInt(player->getED())
 				.writeInt(player->getMap())
-				.finishPacket(0x4F4);
+				.finishPacket(0x508);
 
 			return pb;
 
 		}
 
-		PacketBuilder mapPartyData(Party* party) {
+		PacketBuilder mapPlayerData(Player* player) {
 
 			PacketBuilder pb;
-			Player* player = party->getLeader();
+
 			pb
-				.writeInt(party->getSize())
+				.writeInt(player->getParty()->getSize())
 				.writeInt(0);
 
 			pb
@@ -118,75 +118,56 @@ namespace els {
 				.writeByte(player->getLevel())
 				.writeByte(1);
 
-				pb.writeInt(player->getInv()->getEquipped());
-				for (auto equip : *player->getInv()->getInventory()) {
+			pb.writeInt(player->getInv()->getQuantity(9));
+			for (auto equip : *player->getInv()->getInventory()) {
 
-					if (equip.second.isEquipped()) {
-						pb
-							.writeLong(equip.second.getUniqueID())
-							.writeInt(equip.second.getItemID())
-							.writeByte(9)
-							.writeShort(equip.second.getPosition())
-							.writeInt(0); // attributes
-					}
-
+				if (equip.second.isEquipped()) {
+					pb
+						.writeLong(equip.second.getUniqueID())
+						.writeInt(equip.second.getItemID())
+						.writeByte(9)
+						.writeShort(equip.second.getPosition())
+						.writeInt(0); // attributes
 				}
 
-				pb
-					.writeInt(0)
-					.writeLong(0x4523683A42883E77)
-					.writeInt(0)
-					.writeLong(0)
-					.writeLong(0)
-					.writeLong(0)
-					.writeLong(0)
-					.writeLong(0)
-					.writeLong(0)
-					.writeLong(0)
-					.writeLong(0)
-					.writeLong(0);
-
-				for (auto member : *party->getMembers()) {
-					player = member.second;
-					pb
-						.writeInt(player->getPlayerID())
-						.writeElsString(player->getName())
-						.writeByte((unsigned char)player->getUnitClass())
-						.writeByte(player->getLevel())
-						.writeByte(1);
-
-					pb.writeInt(player->getInv()->getEquipped());
-					for (auto equip : *player->getInv()->getInventory()) {
-
-						if (equip.second.isEquipped()) {
-							pb
-								.writeLong(equip.second.getUniqueID())
-								.writeInt(equip.second.getItemID())
-								.writeByte(9)
-								.writeShort(equip.second.getPosition())
-								.writeInt(0); // attributes
-						}
-
-					}
-
-					pb
-						.writeInt(0)
-						.writeLong(0xC4FA5F0F44E28000)
-						.writeInt(0)
-						.writeLong(0)
-						.writeLong(0)
-						.writeLong(0)
-						.writeLong(0)
-						.writeLong(0)
-						.writeLong(0)
-						.writeLong(0)
-						.writeLong(0)
-						.writeLong(0);
 			}
 
-				pb.finishPacket(0x236);
+			pb
+				.writeInt(0)
+				.writeLong(0x455B499A42883E77)
+				.writeLong(0)
+				.writeLong(0)
+				.writeLong(0)
+				.writeLong(0)
+				.writeLong(0)
+				.writeLong(0)
+				.writeLong(0)
+				.writeLong(0)
+				.writeLong(0)
+				.writeLong(0);
+
+				pb.finishGamePacket(0x237);
 
 			return pb;
+		}
+
+		PacketBuilder mapMovementData(Player* player, PacketReader* pr) {
+
+			PacketBuilder pb;
+			pb
+				.writeInt(0)
+				.writeInt(player->getPlayerID());
+			
+			int i;
+			for (i = 0; i < pr->getLength(); i++) {
+				pb.writeByte(pr->getPacket()[i]);
+			}
+
+			pb.finishGamePacket(0x23B);
+
+			return pb;
+
+
 		}
 
 	}

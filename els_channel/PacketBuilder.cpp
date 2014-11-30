@@ -166,10 +166,35 @@ namespace els {
 		return *this;
 	}
 
+	PacketBuilder& PacketBuilder::writeGameHeader(unsigned short opcode, unsigned int length) {
+		// //Hours wasted not seeing the incorrect header length: 22 (fixed now) - Jonathan
+		unsigned int l = length + 33;
+		writeHeaderByte((unsigned char)(l & 0xFF));
+		writeHeaderByte((unsigned char)((l >> 8) & 0xFF));
+		writeHeaderLong(0);
+		writeHeaderLong(-1);
+		writeHeaderLong(-1);
+		writeHeaderShort(opcode);  // should be opcode
+		writeHeaderInt(length);	// length
+		if (length > 0) {
+			writeHeaderByte(0);
+		}
+
+		return *this;
+	}
+
 	PacketBuilder& PacketBuilder::finishPacket(unsigned short opcode) {
 
 		writeHeader(opcode, m_body.size());
 		writePadding();
+		m_packet.insert(m_packet.end(), m_body.begin(), m_body.end());
+
+		return *this;
+	}
+
+	PacketBuilder& PacketBuilder::finishGamePacket(unsigned short opcode) {
+
+		writeGameHeader(opcode, m_body.size());
 		m_packet.insert(m_packet.end(), m_body.begin(), m_body.end());
 
 		return *this;

@@ -25,7 +25,7 @@ namespace els {
 			pb
 				.writeInt(remSP)
 				.writeInt(0)
-				.finishPacket(0x127);
+				.finishPacket(0x128);
 
 			return pb;
 
@@ -40,7 +40,7 @@ namespace els {
 				.writeInt(dstSkill)
 				.writeInt(srcIndex)
 				.writeInt(srcSkill)
-				.finishPacket(0x129);
+				.finishPacket(0x12A);
 
 			return pb;
 		}

@@ -30,7 +30,9 @@ namespace els {
 			PacketBuilder& writeHeaderInt(unsigned int value);
 			PacketBuilder& writeHeaderLong(unsigned long long value);
 			PacketBuilder& writeHeader(unsigned short opcode, unsigned int length);
+			PacketBuilder& writeGameHeader(unsigned short opcode, unsigned int length);
 			PacketBuilder& finishPacket(unsigned short opcode);
+			PacketBuilder& finishGamePacket(unsigned short opcode);
 			std::string toString();
 			int getLength();
 			std::vector<unsigned char> getPacket();
